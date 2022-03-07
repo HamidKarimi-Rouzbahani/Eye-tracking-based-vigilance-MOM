@@ -170,7 +170,7 @@ try
             
             str=sprintf(['...  Training phase  ...']);
             message = [str '\n\n\n\n\n\n\n\n\n\n ... STOP the dots hitting the static object  ...'...
-                '\n\n\n\n ... the dots usually follow their trajectories  ...'...
+                '\n\n\n\n ... the dots usually follow their invisible trajectories  ...'...
                 '\n\n\n\n ... but sometimes fail ...'...
                 '\n\n\n\n ... ONLY press space bar IF they do not follow !!!  ...'...
                 '\n\n\n\n ... you have ONLY ONE button press for each dot  ...'...
@@ -714,13 +714,13 @@ try
                             FirstAppearTop1(dot_in_trial,tr)=total_counter;
                         end
                         if (isnan(automatically_deflected_top(dot_num)) && isnan(manually_deflected_top(dot_num))) && Moving_dot(1)<obstacle_xposition1+120
-                            Screen('DrawLine',w,[120],x_boundary,y_boundary(dot_num),hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2));
-                            Screen('DrawLine',w,[120],hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2),deflection_coordinates1(dot_num,1),deflection_coordinates1(dot_num,2));
+%                             Screen('DrawLine',w,[120],x_boundary,y_boundary(dot_num),hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2));
+%                             Screen('DrawLine',w,[120],hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2),deflection_coordinates1(dot_num,1),deflection_coordinates1(dot_num,2));
                             Screen('FillOval', w, current_dot_color, Moving_dot);
                         elseif (~isnan(automatically_deflected_top(dot_num)) || ~isnan(manually_deflected_top(dot_num))) && ((Moving_dot(2)./Moving_dot(1))>0.2494) && ((Moving_dot(2)./Moving_dot(1))<1)
                             if Moving_dot(1)<obstacle_xposition1
-                                Screen('DrawLine',w,[120],x_boundary,y_boundary(dot_num),hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2));
-                                Screen('DrawLine',w,[120],hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2),deflection_coordinates1(dot_num,1),deflection_coordinates1(dot_num,2));
+%                                 Screen('DrawLine',w,[120],x_boundary,y_boundary(dot_num),hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2));
+%                                 Screen('DrawLine',w,[120],hitting_coordinates1(dot_num,1),hitting_coordinates1(dot_num,2),deflection_coordinates1(dot_num,1),deflection_coordinates1(dot_num,2));
                             end
                             Screen('FillOval', w, current_dot_color, Moving_dot);
                         else
@@ -809,13 +809,13 @@ try
                             FirstAppearTop2(dot_in_trial,tr)=total_counter;
                         end
                         if (isnan(automatically_deflected_top2(dot_num)) && isnan(manually_deflected_top2(dot_num))) && Moving_dot(1)>obstacle_xposition1-120
-                            Screen('DrawLine',w,[120],wRect(3)-x_boundary,y_boundary2(dot_num),hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2));
-                            Screen('DrawLine',w,[120],hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2),deflection_coordinates2(dot_num,1),deflection_coordinates2(dot_num,2));
+%                             Screen('DrawLine',w,[120],wRect(3)-x_boundary,y_boundary2(dot_num),hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2));
+%                             Screen('DrawLine',w,[120],hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2),deflection_coordinates2(dot_num,1),deflection_coordinates2(dot_num,2));
                             Screen('FillOval', w,current_dot_color2, Moving_dot);
                         elseif (~isnan(automatically_deflected_top2(dot_num)) || ~isnan(manually_deflected_top2(dot_num))) && ((Moving_dot(2)./Moving_dot(1))>0.3) && (Moving_dot(2)./Moving_dot(1))<(0.9)
                             if Moving_dot(1)>obstacle_xposition1
-                                Screen('DrawLine',w,[120],wRect(3)-x_boundary,y_boundary2(dot_num),hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2));
-                                Screen('DrawLine',w,[120],hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2),deflection_coordinates2(dot_num,1),deflection_coordinates2(dot_num,2));
+%                                 Screen('DrawLine',w,[120],wRect(3)-x_boundary,y_boundary2(dot_num),hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2));
+%                                 Screen('DrawLine',w,[120],hitting_coordinates2(dot_num,1),hitting_coordinates2(dot_num,2),deflection_coordinates2(dot_num,1),deflection_coordinates2(dot_num,2));
                             end
                             Screen('FillOval', w,current_dot_color2, Moving_dot);
                         else
