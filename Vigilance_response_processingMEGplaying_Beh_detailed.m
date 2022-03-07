@@ -1,7 +1,7 @@
 %% Sample response processing
 clc
 clear all;
-subjects=1:17;
+subjects=1:14;
 Blocks={'1_','2_','3_','4_','5_','6_','7_','8_','9_','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30'};
 load('Order_of_blocks_for_Psych.mat');
 
@@ -46,11 +46,11 @@ dprime_pattern_monit_att=nan*ones(length(Blocks),length(subjects));
 dprime_pattern_active_unatt=nan*ones(length(Blocks),length(subjects));
 dprime_pattern_monit_unatt=nan*ones(length(Blocks),length(subjects));
 
-correct_reaction_times_att=zeros(length(Blocks),length(subjects));
+correct_reaction_times_att=nan(length(Blocks),length(subjects));
 correct_reaction_active_att=nan*ones(length(Blocks),length(subjects));
 correct_reaction_monit_att=nan*ones(length(Blocks),length(subjects));
 
-correct_reaction_times_unatt=zeros(length(Blocks),length(subjects));
+correct_reaction_times_unatt=nan(length(Blocks),length(subjects));
 correct_reaction_active_unatt=nan*ones(length(Blocks),length(subjects));
 correct_reaction_monit_unatt=nan*ones(length(Blocks),length(subjects));
 
@@ -63,16 +63,21 @@ Distances_traj=[];
 Num_double_press=0;
 Num_before_appearance_association=0;
 
-ggg=0;
 
-for Subj_Num=[max(subjects)]
-% for Subj_Num=[1:max(subjects)]
 
-address='N:\Eye-tracking_lab\Vigilance\Newest_no_trajectory';
+for Subj_Num=[14]
+
+address='N:\Eye-tracking_lab\Vigilance\Newest_no_trajectory_Regine';
 dirs=dir(address);
 cd(address);
 
-blk_nums=30;
+if Subj_Num==5
+    blk_nums=25;
+elseif Subj_Num==7
+    blk_nums=19;
+else
+    blk_nums=30;    
+end
 
 
     for blk=1:blk_nums
@@ -188,12 +193,8 @@ blk_nums=30;
         end
         
         fp_att=fp_F_att+fp_S_att+fp_T_att;
-        %         sum([tp_att tn_att fp_att fn_att])
-        
-%         if ActMon==2
-%             ([blk tp_att fn_att])
-%             ggg=ggg+1;
-%         end
+        sum([tp_att tn_att fp_att fn_att])
+
         accuracy_att(blk,Subj_Num)=(tp_att+tn_att)./(sum(top_events>0)+sum(top_events2>0));
         TPR_att(blk,Subj_Num)=(tp_att)./(tp_att+fn_att);
         TNR_att(blk,Subj_Num)=(tn_att)./(tn_att+fp_att);
@@ -218,16 +219,10 @@ blk_nums=30;
             correct_reaction_monit_att(blk,Subj_Num)=correct_reaction_times_att(blk,Subj_Num);
         end
         
-%         if blk==10
-%             correct_reaction_monit_att(blk,Subj_Num)
-%             TPR_att(blk,Subj_Num)
-% %             asdas
-%         end
-
 % unattended
         tp_unatt=0;
         fp_unatt=0;
-                
+        
         for dot_num=1:Num_moving_dots*Number_of_trials_in_blocks
             tr=ceil(dot_num./Num_moving_dots);
             dot_in_trial=dot_num-(tr-1).*Num_moving_dots;
@@ -276,7 +271,6 @@ blk_nums=30;
             correct_reaction_monit_unatt(blk,Subj_Num)=correct_reaction_times_unatt(blk,Subj_Num);
         end
         
-
     end
     
 %     left_right_direct_app=reshape(left_right_direct_app',[size(left_right_direct_app,1)*size(left_right_direct_app,2) 1]);
@@ -285,11 +279,9 @@ blk_nums=30;
 %     green_red_color=reshape(green_red_color',[size(green_red_color,1)*size(green_red_color,2) 1]);
 %     save(['Event_labels_Subj_',num2str(Subj_Num),'.mat'],'Distances_traj','BlockNumber','Response_to_dots','Active_monitoring_block','Cued_color_block','left_right_direct_app','left_right_direct_app_det','up_down_direct_defl_det','green_red_color')
 end
-% ccc
-
 [Num_double_press Num_before_appearance_association]
-% save('Beh_data_01_Subjs_separated_att_unat.mat','TPR_active_att','TNR_active_att','FPR_active_att','FNR_active_att','TPR_monit_att','TNR_monit_att','FPR_monit_att','FNR_monit_att','correct_reaction_active_att','correct_reaction_monit_att','TPR_active_unatt','TNR_active_unatt','FPR_active_unatt','FNR_active_unatt','TPR_monit_unatt','FPR_monit_unatt','correct_reaction_active_unatt','correct_reaction_monit_unatt')
-% ccc
+save('Beh_data_01_Subjs_separated_att_unat.mat','TPR_active_att','TNR_active_att','FPR_active_att','FNR_active_att','TPR_monit_att','TNR_monit_att','FPR_monit_att','FNR_monit_att','correct_reaction_active_att','correct_reaction_monit_att','TPR_active_unatt','TNR_active_unatt','FPR_active_unatt','FNR_active_unatt','TPR_monit_unatt','FPR_monit_unatt','correct_reaction_active_unatt','correct_reaction_monit_unatt')
+ccc
 %% Behav data analysis: pooling first and second halves for the subject
 % load('Beh_data_14_Subjs.mat');
 % figure;
@@ -340,16 +332,14 @@ end
 % ylabel ('Reaction time [s]')
 
 %%
-% clc;
-% clear all;
+clc;
+clear all;
 % close all;
-% load('Beh_data_01_Subjs_separated_att_unat.mat');
+load('Beh_data_01_Subjs_separated_att_unat.mat');
 RT=0;
 if RT==0
     dataA1=TPR_active_att;
     dataB1=TPR_monit_att;
-%     dataA1=FPR_active_att;
-%     dataB1=FPR_monit_att;
 else   
     dataA1=correct_reaction_active_att;
     dataB1=correct_reaction_monit_att;
@@ -362,16 +352,7 @@ StdM=nanstd([dataB1(1:15,:) dataB1(16:30,:)]');
 figure;
 Shad1=shadedErrorBar([1:15],MeanA,(StdA)./sqrt(size(dataA1,2))*1.96,{'color',[0.1 0.1 0.9],'LineWidth',3},1);
 hold on;
-Shad2=shadedErrorBar([1:15],MeanM,(StdM)./sqrt(size(dataA1,2))*1.96,{'color',[0.9 0.1 0.1],'LineWidth',3},1);
-% Shad1=errorbar([1:15],MeanA,(StdA)./sqrt(size(dataA1,2))*1.96,'*b','linewidth',3);
-% Shad1=errorbar([1:15],MeanA,(StdA)./sqrt(size(dataA1,2))*1.96,'*b','linewidth',3);
-% hold on;
-% Shad2=errorbar([1:15],MeanM,(StdM)./sqrt(size(dataA1,2))*1.96,{'color',[0.9 0.1 0.1],'LineWidth',3},1);
-ylabel('Hit %')
-xlabel('Block')
-ylim([-0.05 1])
-legend([Shad1.mainLine,Shad2.mainLine],{'Active','Monitoring'})
-ccc
+Shad2=shadedErrorBar([1:15],MeanM,(StdA)./sqrt(size(dataA1,2))*1.96,{'color',[0.9 0.1 0.1],'LineWidth',3},1);
 for block=1:15
     tmpA=[dataA1(1:15,:) dataA1(16:30,:)];
     tmpB=[dataB1(1:15,:) dataB1(16:30,:)];
